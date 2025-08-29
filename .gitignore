@@ -1,0 +1,37 @@
+# Dependencies
+vendor/
+.bundle/
+
+# Environment variables
+.env
+.envrc
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/

@@ -1,0 +1,10 @@
+services:
+  hdkit-api:
+    build: .
+    ports:
+      - "4567:4567"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - .:/app
+    restart: unless-stopped
