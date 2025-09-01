@@ -8,7 +8,86 @@ require_relative 'bodygraph_data'
 
 module BodygraphsHelper
 
+  def validate_bodygraph_params(params)
+    errors = []
+
+    # Validate name - should be a non-empty string
+    if params[:name].nil? || params[:name].to_s.strip.empty?
+      errors << "Name is required and cannot be empty"
+    elsif !params[:name].is_a?(String)
+      errors << "Name must be a string"
+    end
+
+    # Validate birth_date - should be in DD/MM/YYYY format
+    if params[:birth_date].nil? || params[:birth_date].to_s.strip.empty?
+      errors << "Birth date is required and cannot be empty"
+    elsif !params[:birth_date].is_a?(String)
+      errors << "Birth date must be a string"
+    elsif !params[:birth_date].match?(/^\d{1,2}\/\d{1,2}\/\d{4}$/)
+      errors << "Birth date must be in DD/MM/YYYY format (e.g., 25/11/1996)"
+    end
+
+    # Validate birth_time - should be in HH:MM format
+    if params[:birth_time].nil? || params[:birth_time].to_s.strip.empty?
+      errors << "Birth time is required and cannot be empty"
+    elsif !params[:birth_time].is_a?(String)
+      errors << "Birth time must be a string"
+    elsif !params[:birth_time].match?(/^\d{1,2}:\d{2}$/)
+      errors << "Birth time must be in HH:MM format (e.g., 11:49)"
+    end
+
+    # Validate birth_country - should be a non-empty string
+    if params[:birth_country]
+      if !params[:birth_country].is_a?(String)
+        errors << "Birth country must be a string"
+      end
+    end
+
+    # Validate birth_city - should be a non-empty string
+    if params[:birth_city]
+      if !params[:birth_city].is_a?(String)
+        errors << "Birth city must be a string"
+      end
+    end
+
+    # Validate latitude - should be a numeric value between -90 and 90
+    if params[:latitude]
+      if !params[:latitude].is_a?(Numeric) && !params[:latitude].to_s.match?(/^-?\d+\.?\d*$/)
+        errors << "Latitude must be a numeric value"
+      elsif params[:latitude].to_f < -90 || params[:latitude].to_f > 90
+        errors << "Latitude must be between -90 and 90 degrees"
+      end
+    end
+
+    # Validate longitude - should be a numeric value between -180 and 180
+    if params[:longitude]
+      if !params[:longitude].is_a?(Numeric) && !params[:longitude].to_s.match?(/^-?\d+\.?\d*$/)
+        errors << "Longitude must be a numeric value"
+      elsif params[:longitude].to_f < -180 || params[:longitude].to_f > 180
+        errors << "Longitude must be between -180 and 180 degrees"
+      end
+    end
+
+    # Validate birth_date_local if provided
+    if params[:birth_date_local]
+      if !params[:birth_date_local].is_a?(String)
+        errors << "Birth date local must be a string"
+      elsif !params[:birth_date_local].match?(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)
+        errors << "Birth date local should be in ISO format (e.g., 1996-11-25T11:49:00)"
+      end
+    end
+
+    if errors.any?
+      raise StandardError, "Validation errors: #{errors.join(', ')}"
+    end
+
+    true
+  end
+
   def build_bodygraph(params, id = nil)
+    # Validate parameters first
+    validate_bodygraph_params(params)
+
     # Create a simple object to hold the bodygraph data
     bodygraph = OpenStruct.new
 

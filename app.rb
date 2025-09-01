@@ -6,6 +6,8 @@ require_relative 'lib/hdkit'
 require_relative 'lib/bodygraph_data'
 
 class HdkitAPI < Sinatra::Base
+  include BodygraphsHelper
+
   set :port, 4567
   set :bind, '0.0.0.0'
 
@@ -35,26 +37,10 @@ class HdkitAPI < Sinatra::Base
       # Parse JSON request body
       request_payload = JSON.parse(request.body.read)
 
-      # Validate required parameters
-      required_params = ['name', 'birth_date', 'birth_time', 'birth_country', 'birth_city']
-      missing_params = required_params.select { |param| request_payload[param].nil? || request_payload[param].to_s.empty? }
-
-      if missing_params.any?
-        status 400
-        return json({
-          error: 'Missing required parameters',
-          missing: missing_params,
-          required: required_params
-        })
-      end
-
       # Convert string keys to symbols for the helper method
       params = request_payload.transform_keys(&:to_sym)
 
-      # Include the helper module
-      include BodygraphsHelper
-
-      # Generate bodygraph
+      # Generate bodygraph (validation happens inside build_bodygraph)
       bodygraph = build_bodygraph(params)
 
       # Convert to hash and return JSON
@@ -103,8 +89,14 @@ class HdkitAPI < Sinatra::Base
       status 400
       json({ error: 'Invalid JSON format', details: e.message })
     rescue StandardError => e
-      status 500
-      json({ error: 'Internal server error', details: e.message })
+      # Check if it's a validation error
+      if e.message.include?('Validation errors:')
+        status 400
+        json({ error: 'Validation failed', details: e.message })
+      else
+        status 500
+        json({ error: 'Internal server error', details: e.message })
+      end
     end
   end
 
