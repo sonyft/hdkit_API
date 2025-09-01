@@ -21,4 +21,4 @@ bundle install
 # Start the API
 echo "Starting API on http://localhost:4567"
 echo "Press Ctrl+C to stop"
-ruby app.rb
+bundle exec rackup --host 0.0.0.0 --port 4567

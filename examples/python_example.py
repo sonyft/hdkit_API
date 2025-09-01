@@ -57,9 +57,8 @@ def generate_bodygraph_with_local_time():
         "name": "Мария Петрова",
         "birth_date": "15/03/1985",
         "birth_time": "14:30",
-        "birth_country": "Bulgaria (BG)",
-        "birth_city": "Plovdiv, Bulgaria",
-        "birth_date_local": "1985-03-15T14:30"
+        "latitude": 42.1532,
+        "longitude": 24.7535
     }
 
     try:

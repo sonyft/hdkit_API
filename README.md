@@ -14,8 +14,8 @@ bundle install
 ### 2. Start the API
 
 ```bash
-# Option 1: Direct start
-ruby app.rb
+# Option 1: Rack (recommended)
+bundle exec rackup --host 0.0.0.0 --port 4567
 
 # Option 2: Using the startup script
 ./start.sh

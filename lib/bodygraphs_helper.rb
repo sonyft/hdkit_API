@@ -36,6 +36,10 @@ module BodygraphsHelper
       errors << "Birth time must be in HH:MM format (e.g., 11:49)"
     end
 
+    unless ((params[:birth_country] && params[:birth_city]) || (params[:latitude] && params[:longitude]))
+      errors << "Either birth country and birth city or latitude and longitude must be provided"
+    end
+
     # Validate birth_country - should be a non-empty string
     if params[:birth_country]
       if !params[:birth_country].is_a?(String)
