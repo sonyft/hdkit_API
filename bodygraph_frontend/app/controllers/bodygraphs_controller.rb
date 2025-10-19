@@ -6,7 +6,7 @@ class BodygraphsController < ApplicationController
   def show
     @bodygraph = BodygraphRecord.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Bodygraph не е намерен'
+    redirect_to root_path, alert: 'Bodygraph not found'
   end
 
   def new
@@ -33,9 +33,9 @@ class BodygraphsController < ApplicationController
         # Create bodygraph record in database
         bodygraph_record = BodygraphRecord.from_api_response(api_response)
 
-        redirect_to bodygraph_path(bodygraph_record), notice: 'Bodygraph генериран успешно!'
+        redirect_to bodygraph_path(bodygraph_record), notice: 'Bodygraph generated successfully!'
       rescue => e
-        flash.now[:alert] = "Грешка при генериране на bodygraph: #{e.message}"
+        flash.now[:alert] = "Error generating bodygraph: #{e.message}"
         render :new, status: :unprocessable_entity
       end
     else

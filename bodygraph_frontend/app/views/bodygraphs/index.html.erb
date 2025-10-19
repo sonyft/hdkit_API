@@ -1,12 +1,12 @@
 <div class="text-center">
   <h1 class="text-4xl font-bold text-gray-900 mb-8">HDKit Bodygraph Generator</h1>
-  <p class="text-xl text-gray-600 mb-8">Генерирайте вашия Human Design bodygraph с помощта на нашето API</p>
+  <p class="text-xl text-gray-600 mb-8">Generate your Human Design bodygraph using our API</p>
 
   <div class="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Какво е Human Design?</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">What is Human Design?</h2>
     <p class="text-gray-600 mb-6">
-      Human Design е система, която комбинира астрология, I Ching, Кабала и чакра системата
-      за да ви помогне да разберете вашата уникална природа и как да живеете в съответствие с нея.
+      Human Design is a system that combines astrology, I Ching, Kabbalah and the chakra system
+      to help you understand your unique nature and how to live in accordance with it.
     </p>
 
     <div class="space-y-4">
@@ -16,7 +16,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
         </div>
-        <span class="text-gray-700">Бързо генериране</span>
+        <span class="text-gray-700">Fast generation</span>
       </div>
 
       <div class="flex items-center justify-center space-x-4">
@@ -25,7 +25,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <span class="text-gray-700">Точни изчисления</span>
+        <span class="text-gray-700">Accurate calculations</span>
       </div>
 
       <div class="flex items-center justify-center space-x-4">
@@ -34,25 +34,25 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
           </svg>
         </div>
-        <span class="text-gray-700">Персонализирани резултати</span>
+        <span class="text-gray-700">Personalized results</span>
       </div>
     </div>
 
     <div class="mt-8">
-      <%= link_to "Започнете сега", new_bodygraph_path, class: "bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-200" %>
+      <%= link_to "Get Started", new_bodygraph_path, class: "bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-200" %>
     </div>
   </div>
 
   <% if @bodygraphs.any? %>
     <div class="mt-12">
-      <h3 class="text-2xl font-semibold text-gray-800 mb-6">Последни генерирани bodygraph-ове</h3>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">Recently Generated Bodygraphs</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @bodygraphs.each do |bodygraph| %>
           <div class="bg-white rounded-lg shadow-md p-6">
             <h4 class="text-lg font-semibold text-gray-800 mb-2"><%= bodygraph.name %></h4>
             <p class="text-gray-600 mb-2"><%= bodygraph.aura_type %></p>
-            <p class="text-sm text-gray-500 mb-4"><%= bodygraph.birth_date %> в <%= bodygraph.birth_city %></p>
-            <%= link_to "Виж детайли", bodygraph_path(bodygraph), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+            <p class="text-sm text-gray-500 mb-4"><%= bodygraph.birth_date %> in <%= bodygraph.birth_city %></p>
+            <%= link_to "View Details", bodygraph_path(bodygraph), class: "text-blue-600 hover:text-blue-800 font-medium" %>
           </div>
         <% end %>
       </div>

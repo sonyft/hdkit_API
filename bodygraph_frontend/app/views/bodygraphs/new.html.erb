@@ -1,13 +1,13 @@
-<% content_for :title, "Нов Bodygraph" %>
+<% content_for :title, "New Bodygraph" %>
 
 <div class="max-w-2xl mx-auto">
-  <h1 class="text-3xl font-bold text-gray-900 mb-8">Създайте нов Bodygraph</h1>
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">Create New Bodygraph</h1>
 
   <div class="bg-white rounded-lg shadow-md p-8">
     <%= form_with(model: @bodygraph, local: true, class: "space-y-6") do |form| %>
       <% if @bodygraph.errors.any? %>
         <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-          <h2 class="font-semibold mb-2">Има <%= pluralize(@bodygraph.errors.count, "грешка") %>:</h2>
+          <h2 class="font-semibold mb-2">There <%= pluralize(@bodygraph.errors.count, "error") %>:</h2>
           <ul class="list-disc list-inside">
             <% @bodygraph.errors.each do |error| %>
               <li><%= error.full_message %></li>
@@ -17,58 +17,58 @@
       <% end %>
 
       <div>
-        <%= form.label :name, "Име", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= form.label :name, "Name", class: "block text-sm font-medium text-gray-700 mb-2" %>
         <%= form.text_field :name,
-            placeholder: "Въведете име",
+            placeholder: "Enter name",
             class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <%= form.label :birth_date, "Дата на раждане", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.label :birth_date, "Birth Date", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= form.text_field :birth_date,
               placeholder: "DD/MM/YYYY",
               class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-          <p class="text-sm text-gray-500 mt-1">Формат: ден/месец/година</p>
+          <p class="text-sm text-gray-500 mt-1">Format: day/month/year</p>
         </div>
 
         <div>
-          <%= form.label :birth_time, "Час на раждане", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.label :birth_time, "Birth Time", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= form.text_field :birth_time,
               placeholder: "HH:MM",
               class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
-          <p class="text-sm text-gray-500 mt-1">Формат: час:минути (24-часов формат)</p>
+          <p class="text-sm text-gray-500 mt-1">Format: hour:minutes (24-hour format)</p>
         </div>
       </div>
 
       <div>
-        <%= form.label :birth_country, "Държава на раждане", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= form.label :birth_country, "Birth Country", class: "block text-sm font-medium text-gray-700 mb-2" %>
         <%= form.text_field :birth_country,
-            placeholder: "Въведете държава",
+            placeholder: "Enter country",
             class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
       <div>
-        <%= form.label :birth_city, "Град на раждане", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= form.label :birth_city, "Birth City", class: "block text-sm font-medium text-gray-700 mb-2" %>
         <%= form.text_field :birth_city,
-            placeholder: "Въведете град",
+            placeholder: "Enter city",
             class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
       <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-        <h3 class="text-sm font-medium text-blue-800 mb-2">Примерни данни за тестване:</h3>
+        <h3 class="text-sm font-medium text-blue-800 mb-2">Sample data for testing:</h3>
         <p class="text-sm text-blue-700">
-          Име: Иван Иванов<br>
-          Дата: 25/11/1996<br>
-          Час: 11:48<br>
-          Държава: Bulgaria (BG)<br>
-          Град: Sofia, Bulgaria
+          Name: John Doe<br>
+          Date: 25/11/1996<br>
+          Time: 11:48<br>
+          Country: Bulgaria (BG)<br>
+          City: Sofia, Bulgaria
         </p>
       </div>
 
       <div class="flex justify-between items-center pt-6">
-        <%= link_to "Назад", root_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
-        <%= form.submit "Генерирай Bodygraph",
+        <%= link_to "Back", root_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
+        <%= form.submit "Generate Bodygraph",
             class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium" %>
       </div>
     <% end %>
