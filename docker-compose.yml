@@ -1,4 +1,5 @@
 services:
+  # HDKit API (Sinatra)
   hdkit-api:
     build: .
     ports:
@@ -8,3 +9,33 @@ services:
     volumes:
       - .:/app
     restart: unless-stopped
+    networks:
+      - hdkit-network
+
+  # Rails Frontend
+  bodygraph-frontend:
+    build:
+      context: ./bodygraph_frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    environment:
+      - RAILS_ENV=development
+      - RAILS_MASTER_KEY=d6bb2abadb43a5de5176ccba2863925c
+    volumes:
+      - ./bodygraph_frontend:/rails
+      - /rails/tmp
+    depends_on:
+      - hdkit-api
+    restart: unless-stopped
+    networks:
+      - hdkit-network
+    command: >
+      bash -c "
+        bundle install &&
+        rails server -b 0.0.0.0 -p 3001
+      "
+
+networks:
+  hdkit-network:
+    driver: bridge

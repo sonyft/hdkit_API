@@ -1,0 +1,178 @@
+<% content_for :title, @bodygraph.name %>
+
+<div class="max-w-6xl mx-auto">
+  <div class="bg-white rounded-lg shadow-md p-8">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= @bodygraph.name %></h1>
+      <p class="text-gray-600">Роден на <%= @bodygraph.birth_date %> в <%= @bodygraph.birth_city %></p>
+    </div>
+
+    <!-- Основна информация -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-blue-50 rounded-lg p-6 text-center">
+        <h3 class="text-sm font-medium text-blue-600 uppercase tracking-wide">Тип</h3>
+        <p class="text-2xl font-bold text-blue-900 mt-2"><%= @bodygraph.aura_type %></p>
+      </div>
+
+      <div class="bg-green-50 rounded-lg p-6 text-center">
+        <h3 class="text-sm font-medium text-green-600 uppercase tracking-wide">Стратегия</h3>
+        <p class="text-lg font-semibold text-green-900 mt-2"><%= @bodygraph.strategy %></p>
+      </div>
+
+      <div class="bg-purple-50 rounded-lg p-6 text-center">
+        <h3 class="text-sm font-medium text-purple-600 uppercase tracking-wide">Авторитет</h3>
+        <p class="text-lg font-semibold text-purple-900 mt-2"><%= @bodygraph.inner_authority %></p>
+      </div>
+
+      <div class="bg-orange-50 rounded-lg p-6 text-center">
+        <h3 class="text-sm font-medium text-orange-600 uppercase tracking-wide">Профил</h3>
+        <p class="text-2xl font-bold text-orange-900 mt-2"><%= @bodygraph.profile %></p>
+      </div>
+    </div>
+
+    <!-- Детайлна информация -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Основна информация</h2>
+        <dl class="space-y-4">
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Определение:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.definition %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Въплъщение кръст:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.incarnation_cross %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Когниция:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.cognition %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Чувство:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.sense %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Допълнителна информация</h2>
+        <dl class="space-y-4">
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Променлива:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.variable %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Определение:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.determination %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Окружение:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.environment %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Гледна точка:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.view %></dd>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <dt class="font-medium text-gray-600">Мотивация:</dt>
+            <dd class="text-gray-900"><%= @bodygraph.motivation %></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Определени центрове -->
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Определени центрове</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <% @bodygraph.defined_centers.each do |center| %>
+          <div class="bg-green-100 border border-green-200 rounded-lg p-4 text-center">
+            <span class="text-green-800 font-semibold"><%= center %></span>
+          </div>
+        <% end %>
+        <% if @bodygraph.defined_centers.empty? %>
+          <div class="col-span-full text-center text-gray-500 py-8">
+            Няма определени центрове
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Bodygraph схема и планетаните активации -->
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Bodygraph схема</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- SVG Bodygraph -->
+        <div class="lg:col-span-2">
+          <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <div id="bodygraph-container" class="flex justify-center">
+              <%= render 'bodygraph_svg', bodygraph: @bodygraph %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Планетаните активации -->
+        <div class="lg:col-span-1">
+          <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Планетаните активации</h3>
+            <div class="grid grid-cols-2 gap-4">
+                     <!-- Personality активации -->
+                     <div>
+                       <h4 class="text-sm font-medium text-gray-600 mb-3">Personality (Черно)</h4>
+                       <div class="space-y-2 text-sm">
+                         <% @bodygraph.personality_activations_for_table_display.each do |activation| %>
+                           <div class="flex justify-between items-center">
+                             <span class="text-black font-medium">
+                               <%= activation[:gate] %>.<%= activation[:line] %>
+                             </span>
+                             <span class="text-gray-700">
+                               <%= planet_symbol(activation[:planet]) %>
+                             </span>
+                           </div>
+                         <% end %>
+                       </div>
+                     </div>
+
+                     <!-- Design активации -->
+                     <div>
+                       <h4 class="text-sm font-medium text-gray-600 mb-3">Design (Червено)</h4>
+                       <div class="space-y-2 text-sm">
+                         <% @bodygraph.design_activations_for_table_display.each do |activation| %>
+                           <div class="flex justify-between items-center">
+                             <span class="text-red-700 font-medium">
+                               <%= activation[:gate] %>.<%= activation[:line] %>
+                             </span>
+                             <span class="text-red-500">
+                               <%= planet_symbol(activation[:planet]) %>
+                             </span>
+                           </div>
+                         <% end %>
+                       </div>
+                     </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Активирани порти -->
+    <% if @bodygraph.all_activated_gates_array&.any? %>
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Активирани порти</h2>
+        <div class="flex flex-wrap gap-2">
+          <% @bodygraph.all_activated_gates_array.each do |gate| %>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+              <%= gate %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Действия -->
+    <div class="mt-8 flex justify-between items-center pt-6 border-t border-gray-200">
+      <%= link_to "Нов Bodygraph", new_bodygraph_path, class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 font-medium" %>
+      <%= link_to "Начало", root_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
+    </div>
+  </div>
+</div>

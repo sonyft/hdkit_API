@@ -1,0 +1,2 @@
+module BodygraphsHelper
+end
